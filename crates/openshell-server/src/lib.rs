@@ -244,7 +244,7 @@ use sandbox_watch::SandboxWatchBus;
 pub use tls::TlsAcceptor;
 use tracing_bus::TracingLogBus;
 
-pub(crate) struct ServerStartupConfig {
+pub struct ServerStartupConfig {
     pub config: Config,
     pub config_file: Option<config_file::ConfigFile>,
     pub guest_tls: Option<compute::driver_config::GuestTlsPaths>,
@@ -508,7 +508,7 @@ fn validate_peer_endpoint_scheme(config: &Config, peer_endpoint: &str) -> Result
 /// # Errors
 ///
 /// Returns an error if the server fails to start or encounters a fatal error.
-pub(crate) async fn run_server(
+pub async fn run_server(
     startup: ServerStartupConfig,
     tracing_log_bus: TracingLogBus,
     compute_drivers: ComputeDriverRegistry,
@@ -1384,7 +1384,7 @@ pub struct ComputeDriverRegistry {
 }
 
 #[derive(Clone, Debug)]
-struct ComputeDriverDetection {
+pub struct ComputeDriverDetection {
     available: Vec<String>,
 }
 
@@ -1395,7 +1395,7 @@ impl ComputeDriverDetection {
 }
 
 #[derive(Clone, Debug)]
-pub(crate) enum ComputeDriverSelection {
+pub enum ComputeDriverSelection {
     Configured { name: String },
     AutoDetected(ComputeDriverDetection),
 }
